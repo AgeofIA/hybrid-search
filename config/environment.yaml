@@ -1,0 +1,17 @@
+name: semantic
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - pandas
+  - openai
+  - python-dotenv
+  - tqdm
+  - flask
+  - loguru
+  - pip
+  - pip:
+    - pinecone-client[grpc]
+    - rank-bm25
+    - cohere

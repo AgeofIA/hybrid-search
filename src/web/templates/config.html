@@ -1,0 +1,121 @@
+<!-- Search Configuration -->
+<div class="mb-6">
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <!-- Collapsible Header -->
+        <button onclick="toggleConfig()" class="w-full px-6 py-4 bg-gray-50 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i data-feather="settings" class="w-5 h-5 text-blue-600"></i>
+                    <h3 class="font-medium text-gray-900">Search Configuration</h3>
+                </div>
+                <i data-feather="chevron-down" id="configIcon" class="w-5 h-5 text-gray-400"></i>
+            </div>
+        </button>
+        
+        <!-- Content (collapsed by default) -->
+        <div id="configPanel" class="hidden">
+            <div class="p-6 space-y-4">
+                <!-- Weight Distribution -->
+                <div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Vector Weight -->
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <div class="flex justify-between mb-1">
+                                <label class="text-sm font-medium text-gray-700">Vector Weight</label>
+                                <span id="vectorWeightValue" class="text-sm text-gray-600"></span>
+                            </div>
+                            <input type="range" id="vectorWeight" min="0" max="1" step="0.1" 
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                                   oninput="updateWeights(this.value)">
+                        </div>
+                        <!-- Keyword Weight -->
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <div class="flex justify-between mb-1">
+                                <label class="text-sm font-medium text-gray-700">Keyword Weight</label>
+                                <span id="keywordWeightValue" class="text-sm text-gray-600"></span>
+                            </div>
+                            <input type="range" id="keywordWeight" min="0" max="1" step="0.1" 
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" 
+                                   disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Threshold Settings -->
+                <div>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                            <label class="block text-sm text-gray-600 mb-1">Min Vector</label>
+                            <input type="number" id="minVectorScore" min="0" max="1" step="0.1" 
+                                   class="w-full px-2 py-1 border border-gray-300 rounded-md text-sm transition-colors"
+                                   required>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                            <label class="block text-sm text-gray-600 mb-1">Min Keyword</label>
+                            <input type="number" id="minKeywordScore" min="0" max="1" step="0.1" 
+                                   class="w-full px-2 py-1 border border-gray-300 rounded-md text-sm transition-colors"
+                                   required>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                            <label class="block text-sm text-gray-600 mb-1">Min Combined</label>
+                            <input type="number" id="minCombinedScore" min="0" max="1" step="0.1" 
+                                   class="w-full px-2 py-1 border border-gray-300 rounded-md text-sm transition-colors"
+                                   required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Settings -->
+                <div>
+                    <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <label class="text-sm font-medium text-gray-700">Semantic Reranking</label>
+                                <p class="text-xs text-gray-500 mt-1">Improve result ordering using semantic analysis</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="enableReranking" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Configuration Actions -->
+                <div class="flex justify-end items-center gap-4 pt-2">
+                    <div class="flex items-center gap-2">
+                        <button
+                            onclick="resetToDefaults()"
+                            class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        >
+                            <i data-feather="refresh-cw" class="w-4 h-4"></i>
+                            Reset to Defaults
+                        </button>
+                        
+                        <button
+                            onclick="loadSavedConfig()"
+                            class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        >
+                            <i data-feather="download" class="w-4 h-4"></i>
+                            Load Saved
+                        </button>
+                        
+                        <button
+                            onclick="saveConfig()"
+                            class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-600 rounded-md hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        >
+                            <i data-feather="save" class="w-4 h-4"></i>
+                            <span id="saveSpinner" class="hidden animate-spin">⟳</span>
+                            Save Config
+                        </button>
+                    </div>
+                    
+                    <!-- Message Display -->
+                    <div id="configMessage" class="hidden fixed bottom-4 right-4 flex items-center gap-2 px-4 py-2 rounded-md shadow-lg">
+                        <!-- Message text will be set by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

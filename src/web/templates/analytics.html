@@ -1,0 +1,94 @@
+<!-- Search Analytics -->
+<div id="searchAnalytics" class="hidden mb-8">
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <!-- Collapsible Header -->
+        <button onclick="toggleAnalytics()" class="w-full px-6 py-4 bg-gray-50 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i data-feather="activity" class="w-5 h-5 text-blue-600"></i>
+                    <h3 class="font-medium text-gray-900">Search Analytics</h3>
+                </div>
+                <i data-feather="chevron-down" id="analyticsToggleIcon" class="w-5 h-5 text-gray-400"></i>
+            </div>
+        </button>
+
+        <!-- Content (collapsed by default) -->
+        <div id="analyticsContent" class="hidden">
+            <div class="p-6 space-y-6">
+                <!-- Query Details -->
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <i data-feather="search" class="w-4 h-4 text-gray-400"></i>
+                            <h4 class="text-sm font-medium text-gray-700">Search Query</h4>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                            <p class="text-sm text-gray-600">Original</p>
+                            <p class="font-medium text-gray-900 mt-1" id="originalQuery"></p>
+                            <div class="mt-2 pt-2 border-t border-gray-200">
+                                <p class="text-sm text-gray-600">Normalized</p>
+                                <p class="font-medium text-gray-900 mt-1" id="normalizedQuery"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Match Statistics -->
+                <div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <i data-feather="bar-chart-2" class="w-4 h-4 text-gray-400"></i>
+                        <h4 class="text-sm font-medium text-gray-700">Match Statistics</h4>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                            <p class="text-sm text-gray-600">Total Candidates</p>
+                            <p class="text-2xl font-semibold text-gray-900 mt-1" id="totalCandidates">-</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                            <p class="text-sm text-gray-600">Qualifying Matches</p>
+                            <p class="text-2xl font-semibold text-gray-900 mt-1" id="qualifyingMatches">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Distribution -->
+                <div>
+                    <div class="flex items-center gap-2 mb-3">
+                        <i data-feather="folder" class="w-4 h-4 text-gray-400"></i>
+                        <h4 class="text-sm font-medium text-gray-700">Result Distribution</h4>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <p class="text-sm text-gray-600 mb-2">Groups Found</p>
+                            <div class="flex flex-wrap gap-2" id="groupsFound"></div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <p class="text-sm text-gray-600 mb-2">Matches per Group</p>
+                            <div class="space-y-2" id="matchesPerGroup"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Configuration -->
+                <div class="pt-6 border-t border-gray-200">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i data-feather="sliders" class="w-4 h-4 text-gray-400"></i>
+                        <h4 class="text-sm font-medium text-gray-700">Search Configuration</h4>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="currentThresholds">
+                        <!-- Thresholds will be populated by JavaScript -->
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-sm text-gray-600 mb-2">Vector/Keyword Weight Split</p>
+                        <div class="flex items-center gap-3">
+                            <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-600 rounded-full" id="vectorWeightIndicator"></div>
+                            </div>
+                            <span class="text-sm font-medium text-gray-900" id="weightSplitText"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+# Core Flask dependencies
+flask
+python-dotenv
+
+# API clients
+openai
+pinecone-client[grpc]
+cohere
+
+# Keyword search
+rank-bm25
+
+# Data processing
+pandas
+pyyaml
+
+# Utilities
+tqdm
