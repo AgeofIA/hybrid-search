@@ -5,6 +5,7 @@ __pycache__/
 
 .env
 saved_config.yaml
+config/
 
 data/
 matches/
